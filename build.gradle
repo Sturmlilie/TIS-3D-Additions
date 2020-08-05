@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '0.2.7-SNAPSHOT'
+	id 'fabric-loom' version '0.4-SNAPSHOT'
 	id 'maven-publish'
 }
 
@@ -9,6 +9,11 @@ targetCompatibility = JavaVersion.VERSION_1_8
 archivesBaseName = project.archives_base_name
 version = project.mod_version
 group = project.maven_group
+
+if (System.getenv("LOCAL_BUILD") != null)
+	version = "local.${System.getenv("LOCAL_BUILD")}"
+else
+	version = "${project.mod_version}+${project.minecraft_version}"
 
 repositories {
     mavenLocal()
@@ -23,7 +28,7 @@ dependencies {
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-	modImplementation "li.cil.tis3d:TIS-3D:MC1.15.2-Fabric-1.5.0.0:api"
+	modImplementation "li.cil.tis3d:TIS-3D:MC1.16.2-pre1-Fabric-1.5.0.0:api"
 
 	// PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
 	// You may need to force-disable transitiveness on them.
