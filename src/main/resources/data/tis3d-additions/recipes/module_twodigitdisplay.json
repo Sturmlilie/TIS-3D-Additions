@@ -1,0 +1,11 @@
+{
+    "type": "crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "tis3d:module_display"
+        }
+    ],
+    "result": {
+        "item": "tis3d-additions:module_twodigitdisplay"
+    }
+}
