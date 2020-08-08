@@ -81,7 +81,7 @@ public final class TwoDigitDisplayModule extends AbstractModuleWithRotation {
         final int blue = value & 0xF;
         // Maximum: 16.0f
         final float luminance = 0.2126f * red + 0.7152f * green + 0.0722f * blue;
-        final float threshold = 0.7f * 16;
+        final float threshold = 0.5f * 16;
         final int textColor = luminance < threshold ? 0xFFFFFFFF : 0xFF000000;
 
         final String displayString = String.format("%02X", value & 0xFF);
