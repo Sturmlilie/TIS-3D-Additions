@@ -1,11 +1,13 @@
 package ancurio.tis3dadd.client;
 
+import li.cil.tis3d.api.ClientAPI;
 import li.cil.tis3d.api.ClientExtInitializer;
 
 public class ClientInit implements ClientExtInitializer {
-    @Override
-    public void onInitializeClient() {
+    public static ClientAPI api;
 
-        System.out.println("Hello TIS-3D client world!");
+    @Override
+    public void onInitializeClient(final ClientAPI api) {
+        this.api = api;
     }
 }

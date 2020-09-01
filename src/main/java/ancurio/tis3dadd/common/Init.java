@@ -1,8 +1,8 @@
 package ancurio.tis3dadd.common;
 
-import li.cil.tis3d.api.API;
+import li.cil.tis3d.api.CommonAPI;
 import li.cil.tis3d.api.ExtInitializer;
-import li.cil.tis3d.api.ModuleAPI;
+import li.cil.tis3d.api.detail.ModuleAPI;
 import li.cil.tis3d.api.machine.Casing;
 import li.cil.tis3d.api.machine.Face;
 import li.cil.tis3d.api.module.Module;
@@ -15,15 +15,15 @@ import net.minecraft.util.registry.Registry;
 
 public class Init implements ExtInitializer {
     @Override
-    public void onInitialize() {
+    public void onInitialize(final CommonAPI api) {
         System.out.println("Hello TIS-3D common world!");
         final Identifier moduleId = new Identifier("tis3d-additions", "module_twodigitdisplay");
 
-        final Item.Settings settings = new Item.Settings().group(API.itemGroup);
+        final Item.Settings settings = new Item.Settings().group(api.itemGroup);
         final Item moduleItem = new Item(settings);
         Registry.register(Registry.ITEM, moduleId, moduleItem);
 
-        ModuleAPI.addProvider(new ModuleProvider() {
+        api.moduleAPI.addProvider(new ModuleProvider() {
             public boolean worksWith(final ItemStack stack, final Casing casing, final Face face) {
                 return stack.getItem() == moduleItem;
             }

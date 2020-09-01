@@ -1,8 +1,9 @@
 package ancurio.tis3dadd.common;
 
+import ancurio.tis3dadd.client.ClientInit;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
-import li.cil.tis3d.api.API;
+import li.cil.tis3d.api.ClientAPI;
 import li.cil.tis3d.api.detail.FontRendererAPI;
 import li.cil.tis3d.api.machine.Casing;
 import li.cil.tis3d.api.machine.Face;
@@ -83,20 +84,21 @@ public final class TwoDigitDisplayModule extends AbstractModuleWithRotation {
         final float luminance = 0.2126f * red + 0.7152f * green + 0.0722f * blue;
         final float threshold = 0.5f * 16;
         final int textColor = luminance < threshold ? 0xFFFFFFFF : 0xFF000000;
+        final FontRendererAPI fontAPI = ClientInit.api.fontRendererAPI;
 
         final String displayString = String.format("%02X", value & 0xFF);
-        final VertexConsumer vcFont = API.fontRendererAPI.chooseVertexConsumer(API.Font.NormalFont, vcp);
+        final VertexConsumer vcFont = fontAPI.chooseVertexConsumer(ClientAPI.Font.NormalFont, vcp);
 
-        final int width = displayString.length() * API.fontRendererAPI.getCharWidth();
-        final int height = API.fontRendererAPI.getCharHeight();
+        final int width = displayString.length() * ClientInit.api.fontRendererAPI.getCharWidth();
+        final int height = fontAPI.getCharHeight();
 
         matrices.push();
         matrices.translate(0.1f, 0.1f, 0);
         matrices.scale(1 / 20f, 1 / 20f, 1);
 
-        API.fontRendererAPI.drawString(API.Font.NormalFont, matrices.peek(), vcFont,
-                                       RenderUtil.maxLight, overlay,
-                                       textColor, displayString, displayString.length());
+        fontAPI.drawString(ClientAPI.Font.NormalFont, matrices.peek(), vcFont,
+                           RenderUtil.maxLight, overlay,
+                           textColor, displayString, displayString.length());
 
         matrices.pop();
         matrices.translate(0f, 0f, 0.005f / 2);
