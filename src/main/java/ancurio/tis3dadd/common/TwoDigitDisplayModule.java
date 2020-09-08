@@ -4,7 +4,7 @@ import ancurio.tis3dadd.client.ClientInit;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import li.cil.tis3d.api.ClientAPI;
-import li.cil.tis3d.api.detail.FontRendererAPI;
+import li.cil.tis3d.api.FontRendererAPI;
 import li.cil.tis3d.api.machine.Casing;
 import li.cil.tis3d.api.machine.Face;
 import li.cil.tis3d.api.machine.Pipe;

@@ -2,7 +2,8 @@ package ancurio.tis3dadd.common;
 
 import li.cil.tis3d.api.CommonAPI;
 import li.cil.tis3d.api.ExtInitializer;
-import li.cil.tis3d.api.detail.ModuleAPI;
+import li.cil.tis3d.api.ManualAPI;
+import li.cil.tis3d.api.ModuleAPI;
 import li.cil.tis3d.api.machine.Casing;
 import li.cil.tis3d.api.machine.Face;
 import li.cil.tis3d.api.module.Module;
@@ -14,6 +15,8 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
 public class Init implements ExtInitializer {
+    public static ManualAPI manualAPI;
+
     @Override
     public void onInitialize(final CommonAPI api) {
         System.out.println("Hello TIS-3D common world!");
@@ -32,5 +35,7 @@ public class Init implements ExtInitializer {
                 return new TwoDigitDisplayModule(casing, face);
             }
         });
+
+        manualAPI = api.manualAPI;
     }
 }
