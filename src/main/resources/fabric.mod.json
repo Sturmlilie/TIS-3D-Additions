@@ -35,5 +35,8 @@
   },
   "suggests": {
     "flamingo": "*"
-  }
+  },
+  "mixins": [
+    "tis3dadd.mixins.json"
+  ]
 }

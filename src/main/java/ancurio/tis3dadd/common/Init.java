@@ -36,6 +36,8 @@ public class Init implements ExtInitializer {
             }
         });
 
+        api.serialAPI.addProvider(new BrewingStandSerialInterfaceProvider());
+
         manualAPI = api.manualAPI;
     }
 }
