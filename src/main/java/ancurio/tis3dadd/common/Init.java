@@ -38,6 +38,10 @@ public class Init implements ExtInitializer {
 
         api.serialAPI.addProvider(new BrewingStandSerialInterfaceProvider());
 
+        final Identifier remoteControlId = new Identifier("tis3d-additions", "remote_control");
+        final Item remoteControl = new RemoteControlItem(new Item.Settings().maxCount(1).group(api.itemGroup), api.infraredAPI);
+        Registry.register(Registry.ITEM, remoteControlId, remoteControl);
+
         manualAPI = api.manualAPI;
     }
 }
