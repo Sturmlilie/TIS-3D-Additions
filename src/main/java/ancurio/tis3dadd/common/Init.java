@@ -2,7 +2,6 @@ package ancurio.tis3dadd.common;
 
 import li.cil.tis3d.api.CommonAPI;
 import li.cil.tis3d.api.ExtInitializer;
-import li.cil.tis3d.api.ManualAPI;
 import li.cil.tis3d.api.ModuleAPI;
 import li.cil.tis3d.api.machine.Casing;
 import li.cil.tis3d.api.machine.Face;
@@ -15,8 +14,6 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
 public class Init implements ExtInitializer {
-    public static ManualAPI manualAPI;
-
     @Override
     public void onInitialize(final CommonAPI api) {
         System.out.println("Hello TIS-3D common world!");
@@ -26,7 +23,7 @@ public class Init implements ExtInitializer {
         final Item moduleItem = new Item(settings);
         Registry.register(Registry.ITEM, moduleId, moduleItem);
 
-        api.moduleAPI.addProvider(new ModuleProvider() {
+        api.module.addProvider(new ModuleProvider() {
             public boolean worksWith(final ItemStack stack, final Casing casing, final Face face) {
                 return stack.getItem() == moduleItem;
             }
@@ -36,12 +33,10 @@ public class Init implements ExtInitializer {
             }
         });
 
-        api.serialAPI.addProvider(new BrewingStandSerialInterfaceProvider());
+        api.serial.addProvider(new BrewingStandSerialInterfaceProvider());
 
         final Identifier remoteControlId = new Identifier("tis3d-additions", "remote_control");
-        final Item remoteControl = new RemoteControlItem(new Item.Settings().maxCount(1).group(api.itemGroup), api.infraredAPI);
+        final Item remoteControl = new RemoteControlItem(new Item.Settings().maxCount(1).group(api.itemGroup), api.infrared);
         Registry.register(Registry.ITEM, remoteControlId, remoteControl);
-
-        manualAPI = api.manualAPI;
     }
 }
