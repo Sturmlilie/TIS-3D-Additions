@@ -97,12 +97,12 @@ public final class BrewingStandSerialInterfaceProvider implements SerialInterfac
 
         @Override
         public void readFromNBT(final CompoundTag nbt) {
-            nbt.putByte(TAG_MODE, (byte) mode.ordinal());
+            mode = Mode.class.getEnumConstants()[nbt.getByte(TAG_MODE)];
         }
 
         @Override
         public void writeToNBT(final CompoundTag nbt) {
-            mode = Mode.class.getEnumConstants()[nbt.getByte(TAG_MODE)];
+            nbt.putByte(TAG_MODE, (byte) mode.ordinal());
         }
     }
 }
