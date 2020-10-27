@@ -16,9 +16,10 @@ import net.minecraft.util.registry.Registry;
 public class Init implements ExtInitializer {
     @Override
     public void onInitialize(final CommonAPI api) {
-        System.out.println("Hello TIS-3D common world!");
+        // Register Two Digit Display module
         final Identifier moduleId = new Identifier("tis3d-additions", "module_twodigitdisplay");
 
+        // Use same ItemGroup as other TIS-3D items
         final Item.Settings settings = new Item.Settings().group(api.itemGroup);
         final Item moduleItem = new Item(settings);
         Registry.register(Registry.ITEM, moduleId, moduleItem);
@@ -33,9 +34,12 @@ public class Init implements ExtInitializer {
             }
         });
 
+        // Register Brewing Stand serial interface
         api.serial.addProvider(new BrewingStandSerialInterfaceProvider());
 
+        // Register Infrared Remote Control
         final Identifier remoteControlId = new Identifier("tis3d-additions", "remote_control");
+        // The API object is passed here to avoid having to store it globally
         final Item remoteControl = new RemoteControlItem(new Item.Settings().maxCount(1).group(api.itemGroup), api.infrared);
         Registry.register(Registry.ITEM, remoteControlId, remoteControl);
     }

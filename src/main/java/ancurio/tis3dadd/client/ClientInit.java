@@ -13,11 +13,13 @@ public class ClientInit implements ClientExtInitializer {
 
     @Override
     public void onInitializeClient(final ClientAPI api) {
+        // Make sure the manual system can find our markup documents
         api.manual.addProvider(new ResourceContentProvider("tis3d-additions", "doc/"));
 
         final Identifier tabIcon = new Identifier("tis3d-additions",
             "textures/gui/manual_tis3d_additions.png");
 
+        // Add a custom tab for our pages
         api.manual.addTab(new TextureTabIconRenderer(tabIcon),
             "tis3d-additions.manual.index", "%LANGUAGE%/additions/index.md");
 
