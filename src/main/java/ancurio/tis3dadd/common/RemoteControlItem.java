@@ -19,9 +19,6 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
-/**
- * The code book, utility book for coding ASM programs for execution modules.
- */
 public final class RemoteControlItem extends Item {
     private static final short PACKET_VALUE = (short) 0x7EEF;
     private final InfraredAPI api;
@@ -54,9 +51,6 @@ public final class RemoteControlItem extends Item {
     public ActionResult useOnBlock(final ItemUsageContext context) {
         return ActionResult.PASS;
     }
-
-    // --------------------------------------------------------------------- //
-    // ItemBook
 
     @Override
     public boolean isEnchantable(final ItemStack stack) {
