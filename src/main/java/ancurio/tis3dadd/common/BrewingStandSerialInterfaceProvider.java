@@ -51,8 +51,25 @@ public final class BrewingStandSerialInterfaceProvider implements SerialInterfac
         private final BrewingStandBlockEntityAccessors stand;
         private Mode mode = Mode.Fuel;
 
+        // Buffer the brewTime value the first time peek is called,
+        // so the write doesn't get cancelled midway through.
+        // Once skip() is called, we're free to read (and buffer)
+        // a new value from the block entity.
+        // We have to do this because the brewTime changes every tick.
+        private boolean brewtimeIsBuffered = false;
+        private short brewtimeBuffer;
+
         SerialInterfaceBrewingStand(final BrewingStandBlockEntity entity) {
             this.stand = (BrewingStandBlockEntityAccessors) entity;
+        }
+
+        private short getBufferedBrewtime() {
+            if (!brewtimeIsBuffered) {
+                brewtimeBuffer = (short) stand.getBrewTime();
+                brewtimeIsBuffered = true;
+            }
+
+            return brewtimeBuffer;
         }
 
         @Override
@@ -80,7 +97,7 @@ public final class BrewingStandSerialInterfaceProvider implements SerialInterfac
             case Fuel:
                 return (short) stand.getFuel();
             case Brewtime:
-                return (short) stand.getBrewTime();
+                return getBufferedBrewtime();
             }
 
             return 0;
@@ -88,6 +105,7 @@ public final class BrewingStandSerialInterfaceProvider implements SerialInterfac
 
         @Override
         public void skip() {
+            brewtimeIsBuffered = false;
         }
 
         @Override
