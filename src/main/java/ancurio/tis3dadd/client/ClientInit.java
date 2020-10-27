@@ -3,13 +3,14 @@ package ancurio.tis3dadd.client;
 import ancurio.tis3dadd.common.Init;
 import li.cil.tis3d.api.ClientAPI;
 import li.cil.tis3d.api.ClientExtInitializer;
+import li.cil.tis3d.api.FontRendererAPI;
 import li.cil.tis3d.api.ManualClientAPI;
 import li.cil.tis3d.api.prefab.manual.ResourceContentProvider;
 import li.cil.tis3d.api.prefab.manual.TextureTabIconRenderer;
 import net.minecraft.util.Identifier;
 
 public class ClientInit implements ClientExtInitializer {
-    public static ClientAPI api;
+    public static FontRendererAPI fontRenderer;
 
     @Override
     public void onInitializeClient(final ClientAPI api) {
@@ -23,6 +24,8 @@ public class ClientInit implements ClientExtInitializer {
         api.manual.addTab(new TextureTabIconRenderer(tabIcon),
             "tis3d-additions.manual.index", "%LANGUAGE%/additions/index.md");
 
-        this.api = api;
+        // Store the font rendering API globally so the module render
+        // code can access it later.
+        this.fontRenderer = api.fontRenderer;
     }
 }

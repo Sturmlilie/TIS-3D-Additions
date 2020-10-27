@@ -83,12 +83,12 @@ public final class TwoDigitDisplayModule extends AbstractModuleWithRotation {
         final float luminance = 0.2126f * red + 0.7152f * green + 0.0722f * blue;
         final float threshold = 0.5f * 16;
         final int textColor = luminance < threshold ? 0xFFFFFFFF : 0xFF000000;
-        final FontRendererAPI fontAPI = ClientInit.api.fontRenderer;
+        final FontRendererAPI fontAPI = ClientInit.fontRenderer;
 
         final String displayString = String.format("%02X", value & 0xFF);
         final VertexConsumer vcFont = fontAPI.chooseVertexConsumer(FontRendererAPI.Font.NormalFont, vcp);
 
-        final int width = displayString.length() * ClientInit.api.fontRenderer.getCharWidth();
+        final int width = displayString.length() * fontAPI.getCharWidth();
         final int height = fontAPI.getCharHeight();
 
         matrices.push();
