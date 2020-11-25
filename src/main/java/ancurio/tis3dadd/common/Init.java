@@ -34,8 +34,9 @@ public class Init implements ExtInitializer {
             }
         });
 
-        // Register Brewing Stand serial interface
+        // Register serial interfaces
         api.serial.addProvider(new BrewingStandSerialInterfaceProvider());
+        api.serial.addProvider(new LecternSerialInterfaceProvider());
 
         // Register Infrared Remote Control
         final Identifier remoteControlId = new Identifier("tis3d-additions", "remote_control");
