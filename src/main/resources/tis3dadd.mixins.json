@@ -3,7 +3,8 @@
     "package": "ancurio.tis3dadd.mixin",
     "compatibilityLevel": "JAVA_8",
     "mixins": [
-        "BrewingStandBlockEntityAccessors"
+        "BrewingStandBlockEntityAccessors",
+        "LecternBlockEntityAccessors"
     ],
     "injectors": {
         "defaultRequire": 1

@@ -1,5 +1,6 @@
 package ancurio.tis3dadd.common;
 
+import ancurio.tis3dadd.mixin.LecternBlockEntityAccessors;
 import li.cil.tis3d.api.serial.SerialInterface;
 import li.cil.tis3d.api.serial.SerialInterfaceProvider;
 import li.cil.tis3d.api.serial.SerialProtocolDocumentationReference;
@@ -63,6 +64,11 @@ public final class LecternSerialInterfaceProvider implements SerialInterfaceProv
             return lectern.getCurrentPage() + 1;
         }
 
+        private void setCurrentPage(int page) {
+            LecternBlockEntityAccessors accessor = (LecternBlockEntityAccessors) lectern;
+            accessor.invokeSetCurrentPage(page);
+        }
+
         private int getPageCount() {
             return WrittenBookItem.getPageCount(lectern.getBook());
         }
@@ -80,8 +86,17 @@ public final class LecternSerialInterfaceProvider implements SerialInterfaceProv
         public void write(final short value) {
             if (value == 0) {
                 mode = Mode.CurrentPage;
-            } else {
+            } else if (value == 1) {
                 mode = Mode.PageCount;
+            } else if ((value & 0x100) != 0) {
+                int newPage = (value & 0xFF) - 1;
+
+                // Add some UB: Page "0" maps to last page
+                if (newPage < 0) {
+                    newPage += 256;
+                }
+
+                setCurrentPage(newPage);
             }
         }
 
